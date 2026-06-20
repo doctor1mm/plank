@@ -389,34 +389,34 @@
     return m+':'+String(s).padStart(2,'0');
   }
 
-  // ---------- Storage ----------
+  // ---------- Storage (browser localStorage — works on any website) ----------
   async function loadAll(){
     try{
-      const p = await window.storage.get('plank-sessions');
-      plankSessions = p ? JSON.parse(p.value) : {};
+      const p = localStorage.getItem('plank-sessions');
+      plankSessions = p ? JSON.parse(p) : {};
     }catch(e){ plankSessions = {}; }
 
     try{
-      const n = await window.storage.get('nutrition-log');
-      nutritionLog = n ? JSON.parse(n.value) : {};
+      const n = localStorage.getItem('nutrition-log');
+      nutritionLog = n ? JSON.parse(n) : {};
     }catch(e){ nutritionLog = {}; }
 
     try{
-      const b = await window.storage.get('plank-best');
-      bestPlank = b ? JSON.parse(b.value) : 0;
+      const b = localStorage.getItem('plank-best');
+      bestPlank = b ? JSON.parse(b) : 0;
     }catch(e){ bestPlank = 0; }
 
     renderAll();
   }
 
   async function savePlank(){
-    try{ await window.storage.set('plank-sessions', JSON.stringify(plankSessions)); }catch(e){}
+    try{ localStorage.setItem('plank-sessions', JSON.stringify(plankSessions)); }catch(e){}
   }
   async function saveNutrition(){
-    try{ await window.storage.set('nutrition-log', JSON.stringify(nutritionLog)); }catch(e){}
+    try{ localStorage.setItem('nutrition-log', JSON.stringify(nutritionLog)); }catch(e){}
   }
   async function saveBest(){
-    try{ await window.storage.set('plank-best', JSON.stringify(bestPlank)); }catch(e){}
+    try{ localStorage.setItem('plank-best', JSON.stringify(bestPlank)); }catch(e){}
   }
 
   // ---------- Render ----------
